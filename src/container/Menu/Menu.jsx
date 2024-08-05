@@ -16,25 +16,25 @@ const Menu = () => {
                     </Box>
                     <Typography sx={styles.text}>Goals</Typography>
                 </Box>
-                <Box sx={styles.arrowIconContainer}><ArrowRightIcon sx={{ color: 'white', fontSize: '20px' }} /></Box>
+                <Box sx={styles.arrowIconContainer}><ArrowRightIcon sx={styles.arrowIcon} /></Box>
             </Box>
             <Box sx={styles.itemContainer}>
                 <Box sx={styles.iconParent}>
                     <Box sx={[styles.iconContainer, styles.dishes]}>
                         <RiceBowlOutlinedIcon sx={{ color: 'black' }} />
                     </Box>
-                    <Typography sx={styles.text}>Goals</Typography>
+                    <Typography sx={styles.text}>Popular Dishes</Typography>
                 </Box>
-                <Box sx={styles.arrowIconContainer}><ArrowRightIcon sx={{ color: 'white', fontSize: '20px' }} /></Box>
+                <Box sx={styles.arrowIconContainer}><ArrowRightIcon sx={styles.arrowIcon} /></Box>
             </Box>
             <Box sx={styles.itemContainer}>
                 <Box sx={styles.iconParent}>
                     <Box sx={[styles.iconContainer, styles.menu]}>
                         <ChatBubbleOutlineOutlinedIcon sx={{ color: 'black' }} />
                     </Box>
-                    <Typography sx={styles.text}>Goals</Typography>
+                    <Typography sx={styles.text}>Menues</Typography>
                 </Box>
-                <Box sx={styles.arrowIconContainer}><ArrowRightIcon sx={{ color: 'white', fontSize: '20px' }} /></Box>
+                <Box sx={styles.arrowIconContainer}><ArrowRightIcon sx={styles.arrowIcon} /></Box>
             </Box>
         </Box>
     )

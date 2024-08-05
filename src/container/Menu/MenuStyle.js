@@ -33,6 +33,7 @@ export const styles = {
         backgroundColor: 'grey',
         borderRadius: '50%'
     },
+    arrowIcon: { color: 'white', fontSize: '20px', cursor: 'pointer' },
     dishes: {
         backgroundColor: '#2B3168',
     },
