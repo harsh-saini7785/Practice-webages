@@ -8,6 +8,14 @@ export const styles = {
             display: 'block',
         },
     },
+    container3: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px',
+        "@media (max-width: 850px)": {
+            display: 'block',
+        },
+    },
     dashBoardContainer: {
         backgroundColor: 'black',
         flex: 1,

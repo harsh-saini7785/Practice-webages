@@ -2,6 +2,7 @@ export const styles = {
     tableContainer: {
         '&::-webkit-scrollbar': {
             width: '4px', // Set the width of the scrollbar
+            height: '4px'
         },
         '&::-webkit-scrollbar-thumb': {
             backgroundColor: '#888', // Set the color of the scrollbar thumb

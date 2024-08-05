@@ -8,7 +8,6 @@ import routes from './routes.js'
 function App() {
   return (
     <div>
-      <AppBar />
       <Router>
         <Suspense fallback={<h1>loading</h1>}>
           <Routes>
@@ -24,7 +23,6 @@ function App() {
           </Routes>
         </Suspense >
       </Router>
-      <AppBar />
     </div>
   )
 }

@@ -64,7 +64,7 @@ const Home = () => {
         </Box>
       </Box>
 
-      <Box sx={styles.container1}>
+      <Box sx={styles.container3}>
         <Box sx={styles.tableContainer}>
           <Table />
         </Box>

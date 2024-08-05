@@ -1,8 +1,5 @@
 import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
-import { Outlet } from 'react-router-dom';
 import Box from '@mui/material/Box';
-import MuiDrawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -20,44 +17,35 @@ import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import { styles } from './SideNavStyle'
+import { CssBaseline, Drawer, Toolbar } from '@mui/material';
+import NavBar from '../NavBar/NavBar';
+import { Outlet } from 'react-router-dom';
+import Home from '../../container/Home/Home';
 
+const drawerWidth = 70;
 
-const closedMixin = (theme) => ({
-    transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-    }),
-    overflowX: 'hidden',
-    width: `calc(${theme.spacing(7)} + 1px)`,
-    [theme.breakpoints.up('sm')]: {
-        width: `calc(${theme.spacing(8)} + 1px)`,
-    },
-});
-
-const DrawerHeader = styled('div')(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-}));
-
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
-        flexShrink: 0,
-        whiteSpace: 'nowrap',
-        boxSizing: 'border-box',
-        ...(!open && {
-            ...closedMixin(theme),
-            '& .MuiDrawer-paper': closedMixin(theme),
-        }),
-    }),
-);
-
-export default function SideNav() {
-    const theme = useTheme();
+function SideNav(props) {
+    const { window } = props;
+    const [mobileOpen, setMobileOpen] = React.useState(false);
+    const [isClosing, setIsClosing] = React.useState(false);
     const [activeIndex, setActiveIndex] = React.useState(0)
+
+
+    const handleDrawerClose = () => {
+        setIsClosing(true);
+        setMobileOpen(false);
+    };
+
+    const handleDrawerTransitionEnd = () => {
+        setIsClosing(false);
+    };
+
+    const handleDrawerToggle = () => {
+        console.log('hii');
+        if (!isClosing) {
+            setMobileOpen(!mobileOpen);
+        }
+    };
 
     const items = [
         {
@@ -92,63 +80,108 @@ export default function SideNav() {
         }
     ]
 
-    return (
-        <Box sx={styles.sideBarContainer}>
-            <Drawer variant="permanent" open={false}>
-                <Box sx={{ height: '100%', display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }}>
-                    <List>
-                        <Box sx={styles.logoContainer} ><AcUnitIcon sx={styles.logo} /></Box>
-                        {items.map((item, index) => (
-                            <ListItem key={item.key} onClick={() => setActiveIndex(index)} disablePadding sx={{ display: 'block' }}>
-                                <ListItemButton
-                                    sx={{
-                                        minHeight: 48,
-                                        justifyContent: 'initial',
-                                        px: 2.5,
-                                        marginTop: '14px',
-                                        borderLeft: index === activeIndex ? "3px solid #7694F9" : "3px solid transparent",
-                                    }}
-                                >
-                                    <ListItemIcon
-                                        sx={{
-                                            minWidth: 0,
-                                            mr: 'auto',
-                                            justifyContent: 'center',
-                                        }}
-                                    >
-                                        {index !== activeIndex ? item.icon : (item.filledIcon || item.icon)}
-                                    </ListItemIcon>
-                                </ListItemButton>
-                            </ListItem>
-                        ))}
-                    </List>
-                    <List>
-                        <ListItem disablePadding sx={{ display: 'block' }}>
-                            <ListItemButton
+
+    const drawer = (
+        <Box sx={{ height: '100%', display: 'flex', justifyContent: 'space-between', flexDirection: 'column' }}>
+            <List>
+                <Box sx={styles.logoContainer} ><AcUnitIcon sx={styles.logo} /></Box>
+                {items.map((item, index) => (
+                    <ListItem key={item.key} onClick={() => setActiveIndex(index)} disablePadding sx={{ display: 'block' }}>
+                        <ListItemButton
+                            sx={{
+                                minHeight: 48,
+                                justifyContent: 'initial',
+                                px: 2.5,
+                                marginTop: '14px',
+                                borderLeft: index === activeIndex ? "3px solid #7694F9" : "3px solid transparent",
+                            }}
+                        >
+                            <ListItemIcon
                                 sx={{
-                                    minHeight: 48,
-                                    justifyContent: 'initial',
-                                    px: 2.5,
+                                    minWidth: 0,
+                                    mr: 'auto',
+                                    justifyContent: 'center',
                                 }}
                             >
-                                <ListItemIcon
-                                    sx={{
-                                        minWidth: 0,
-                                        mr: 'auto',
-                                        justifyContent: 'center',
-                                    }}
-                                >
-                                    <ExitToAppOutlinedIcon sx={{ color: 'grey' }} />
-                                </ListItemIcon>
-                            </ListItemButton>
-                        </ListItem>
-                    </List>
-                </Box>
-            </Drawer>
-            <Box component="main" sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, p: 3, padding: 0 }}>
-                <DrawerHeader />
+                                {index !== activeIndex ? item.icon : (item.filledIcon || item.icon)}
+                            </ListItemIcon>
+                        </ListItemButton>
+                    </ListItem>
+                ))}
+            </List>
+            <List>
+                <ListItem disablePadding sx={{ display: 'block' }}>
+                    <ListItemButton
+                        sx={{
+                            minHeight: 48,
+                            justifyContent: 'initial',
+                            px: 2.5,
+                        }}
+                    >
+                        <ListItemIcon
+                            sx={{
+                                minWidth: 0,
+                                mr: 'auto',
+                                justifyContent: 'center',
+                            }}
+                        >
+                            <ExitToAppOutlinedIcon sx={{ color: 'grey' }} />
+                        </ListItemIcon>
+                    </ListItemButton>
+                </ListItem>
+            </List>
+        </Box>
+    );
+
+    // const container = window !== undefined ? () => window().document.body : undefined;
+
+    return (
+        <Box sx={{ display: 'flex' }}>
+            <CssBaseline />
+            <NavBar handleDrawerToggle={handleDrawerToggle} />
+            <Box
+                component="nav"
+                sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 }, backgroundColor: 'black' }}
+                aria-label="mailbox folders"
+            >
+                <Drawer
+                    // container={container}
+                    variant="temporary"
+                    open={mobileOpen}
+                    onTransitionEnd={handleDrawerTransitionEnd}
+                    onClose={handleDrawerClose}
+                    ModalProps={{
+                        keepMounted: true, // Better open performance on mobile.
+                    }}
+                    sx={{
+                        display: { xs: 'block', sm: 'none' },
+                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, backgroundColor: '#1F2029' },
+                    }}
+                >
+                    {drawer}
+                </Drawer>
+                <Drawer
+                    variant="permanent"
+                    sx={{
+
+                        display: { xs: 'none', sm: 'block' },
+                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, backgroundColor: '#1F2029', },
+                    }}
+                    open
+                >
+                    {drawer}
+                </Drawer>
+            </Box>
+            <Box
+                component="main"
+                sx={{ flexGrow: 1, p: 0, width: '100%' }}
+            >
+                <Toolbar />
                 <Outlet />
             </Box>
         </Box>
     );
 }
+
+
+export default SideNav;
